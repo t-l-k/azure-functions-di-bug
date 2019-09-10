@@ -1,0 +1,10 @@
+{
+  "version": "2.0",
+  "Logging": {
+    "LogLevel": {
+      "Default": "Error",
+      "Func.Canary": "Trace",
+      "Microsoft": "Error",
+    }
+  },
+}

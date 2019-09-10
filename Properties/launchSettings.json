@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Func.Canary": {
+      "commandName": "Executable",
+      "executablePath": "%AppData%\\..\\Local\\azfunctemp-1513\\func.exe",
+      "commandLineArgs": "host start"
+    }
+  }
+}
