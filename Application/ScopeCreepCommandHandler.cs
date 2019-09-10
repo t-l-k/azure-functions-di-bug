@@ -9,12 +9,14 @@ namespace Func.Canary.Application
     {
         public DependencyGraphAlpha GraphAlpha { get; set; }
         public DependencyGraphBravo GraphBravo { get; set; }
+        public IScopeCreepService CreepService { get; }
 
-        public ScopeCreepCommandHandler(DependencyGraphAlpha alpha, DependencyGraphBravo bravo)
+        public ScopeCreepCommandHandler(DependencyGraphAlpha alpha, DependencyGraphBravo bravo, IScopeCreepService creepService)
         {
             // This is where the injected dependencies go a bit skew-iffed
             GraphAlpha = alpha;
             GraphBravo = bravo;
+            CreepService = creepService;
         }
         
         // Object 1 has some registered dependencies 

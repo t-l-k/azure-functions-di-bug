@@ -12,7 +12,7 @@ namespace Func.Canary
         private static ulong objectNumber = 0L;
         private ulong objectInstance;
 
-        public DependencyGraphAlpha(IGraphInterfaceA a, GraphObjectB b, IScopeCreepService creepService, ILogger<DependencyGraphAlpha> log)
+        public DependencyGraphAlpha(IGraphInterfaceA a, GraphObjectB b, ILogger<DependencyGraphAlpha> log)
         {
             objectInstance = objectNumber++; 
 
@@ -20,13 +20,13 @@ namespace Func.Canary
             log.LogTrace("[{0}] graphObjectB {1} (from {2} ({3})) {4}", objectInstance, b.GetHashCode(), GetHashCode(), GetType().Name, Thread.CurrentThread.ManagedThreadId);
             A = a;
             B = b;
-            CreepService = creepService;
+            //CreepService = creepService;
             //Thread.Sleep(150);
         }
 
         public IGraphInterfaceA A { get; }
         public GraphObjectB B { get; }
-        public IScopeCreepService CreepService { get; }
+        //public IScopeCreepService CreepService { get; }
     }
 
     public class DependencyGraphBravo
@@ -34,7 +34,7 @@ namespace Func.Canary
         private static ulong objectNumber = 0L;
         private ulong objectInstance;
 
-        public DependencyGraphBravo(GraphObjectA a, GraphObjectB b, IScopeCreepService creepService, ILogger<DependencyGraphBravo> log)
+        public DependencyGraphBravo(GraphObjectA a, GraphObjectB b, ILogger<DependencyGraphBravo> log)
         {
             objectInstance = objectNumber++;
 
@@ -42,12 +42,12 @@ namespace Func.Canary
             log.LogTrace("[{0}] graphObjectB {1} (from {2} ({3})) {4}", objectInstance, b.GetHashCode(), GetHashCode(), GetType().Name, Thread.CurrentThread.ManagedThreadId);
             A = a;
             B = b;
-            CreepService = creepService;
+            //CreepService = creepService;
         }
 
         public GraphObjectA A { get; }
         public GraphObjectB B { get; }
-        public IScopeCreepService CreepService { get; }
+        //public IScopeCreepService CreepService { get; }
     }
 
     public class GraphObjectA : IGraphInterfaceA

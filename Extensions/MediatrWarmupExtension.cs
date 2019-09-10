@@ -5,6 +5,7 @@ using Microsoft.Azure.WebJobs.Host.Config;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Diagnostics;
 
 namespace Func.Canary.Extensions
 {
@@ -36,14 +37,25 @@ namespace Func.Canary.Extensions
             // Get the same type 3 times, what happens? 
             // Warmup ...
 
-            var handler1 = scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
-            var handler2 = scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
-            // ^^ The bug manifests at this point ^^ handler1 and handler2 dependencies should be the same. 
+            var handler1 = (ScopeCreepCommandHandler) scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
+            var handler2 = (ScopeCreepCommandHandler) scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
+            //// ^^ The bug manifests at this point ^^ handler1 and handler2 dependencies should be the same. 
             // The "DependencyGraphAlpha" instance is new and has new dependencies also. 
             // But "DependencyGraphBravo" instance is scoped the same and has same dependencies. 
 
+            var handler3 = (ScopeCreepCommandHandler) scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
+            var handler4 = (ScopeCreepCommandHandler) scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
+            // ^^ but these ones resolve with the same dependencies as handler2.
+
+            Debug.Assert(handler2.GraphAlpha.Equals(handler3.GraphAlpha));
+            Debug.Assert(handler2.GraphBravo.Equals(handler3.GraphBravo));
+            Debug.Assert(handler2.GraphAlpha.Equals(handler4.GraphAlpha));
+            Debug.Assert(handler2.GraphBravo.Equals(handler4.GraphBravo));
+
+            Debug.Assert(handler2.GraphAlpha.Equals(handler1.GraphAlpha)); // boom
+
             // The problem is with the injection of a HttpClient. 
-                       
+
             // The above dependencies are all registered as scoped.
 
             // Surplus to requirements:
