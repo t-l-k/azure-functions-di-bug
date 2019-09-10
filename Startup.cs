@@ -17,7 +17,7 @@ namespace Func.Canary
 
         public void Configure(IWebJobsBuilder builder)
         {
-            builder.AddExtension<ScopeCreepExtension>();
+            // builder.AddExtension<ScopeCreepExtension>();
             builder.AddExtension<MediatrWarmupExtension>();
 
             AddServices(builder.Services);
