@@ -36,6 +36,7 @@ namespace Func.Canary.Extensions
 
             // Get the same type 3 times, what happens? 
             // Warmup ...
+            var service = scopedProvider.GetRequiredService<IScopeCreepService>();
 
             var handler1 = (ScopeCreepCommandHandler) scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
             var handler2 = (ScopeCreepCommandHandler) scopedProvider.GetRequiredService<IRequestHandler<ScopeCreepCommand, ScopeCreepCommandResult>>();
