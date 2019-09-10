@@ -1,0 +1,11 @@
+<Project>
+  <Target Name="UnzipArchive" AfterTargets="Build">
+        <Unzip
+            SourceFiles="Azure.Functions.Cli.min.win-x64.2.7.1513.zip"
+            DestinationFolder="$(OutputPath)\func1513"
+            OverwriteReadOnlyFiles="true"
+			ContinueOnError="true"
+			Condition="!Exists('$(OutputPath)\func1513')"
+        />
+    </Target>
+</Project>
